@@ -1,6 +1,5 @@
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png"; // Adjust the path if needed
 
 function Header() {
   
@@ -19,7 +18,6 @@ function Header() {
       {/* Logo aligned to the right */}
       <Link to={"/home"} className="flex-1 flex justify-end">
         <img
-          src={logo}
           alt="אסלי"
           className="cursor-pointer max-h-24 max-w-48"
         />
