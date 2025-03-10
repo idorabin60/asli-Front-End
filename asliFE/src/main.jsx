@@ -5,7 +5,7 @@ import ProtectedRoute from "./utils/ProtectedRoutes.jsx";
 import SignIn from "./auth/signIn.jsx";
 import App from "./App.jsx";
 import "./index.css";
-import { HomeworkDashboard } from "./components/HomeworkDashboard.jsx";
+import Page from "./components/Page.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "home",
-        element: <HomeworkDashboard />,
+        element: <Page />,
       },
      
     ],

@@ -50,7 +50,7 @@ export function HomeworkDashboard() {
   },[])
 
   return (
-<div className="bg-arabic_view min-h-screen w-screen">
+<div className="min-h-screen w-screen">
 
 <div className="container mx-auto py-8 px-4 max-w-2xl min-h-screen">
 <h1 className="text-3xl font-bold mb-8 text-right text-gray-800">שיעורי הבית שלי</h1>
