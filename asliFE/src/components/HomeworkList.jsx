@@ -8,9 +8,6 @@ export function HomeworkList({ homeworks, onSelect, selectedId }) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4 text-right text-gray-700">
-        רשימת משימות
-      </h2>
       {homeworks.map((homework) => {
         console.log("hi")
         console.log(homework); // ✅ Correct placement of console.log()

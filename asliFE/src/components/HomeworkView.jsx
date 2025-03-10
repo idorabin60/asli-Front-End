@@ -1,38 +1,48 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import clsx from "clsx";
 
 export function HomeworkView({ homework, onMarkComplete }) {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString("he-IL", options)
-  }
-
   return (
     <Card className="w-full bg-white shadow-md">
       <CardHeader className="pb-2">
         <CardTitle className="text-2xl font-bold text-gray-800">{homework.title}</CardTitle>
-        <div className="text-sm text-gray-600">
-          <span>{homework.subject}</span>
-          <span className="mx-2">•</span>
-          <span>תאריך הגשה: {formatDate(homework.dueDate)}</span>
-        </div>
+        <div className="text-sm text-gray-600">{homework.subject}</div>
       </CardHeader>
-      <CardContent>
-        <p className="text-gray-700 text-lg leading-relaxed">{homework.content}</p>
+
+      <CardContent className="space-y-4">
+        <Section title="סיכום" content={homework.summary} />
+        <Section title="אוצר מילים חדש" content={homework.new_vocabulary} />
+        <Section title="שיעורי בית" content={homework.hw} />
+        <Section title="תופעה דקדוקית" content={homework.grammatical_phenomenon} />
       </CardContent>
+
       <CardFooter className="border-t pt-4 flex justify-end">
         <Button
-          className={`px-4 py-2 rounded-md ${
+          className={clsx(
+            "px-4 py-2 rounded-md transition-colors",
             homework.completed
               ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
               : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          )}
           onClick={() => onMarkComplete(homework.id)}
         >
           {homework.completed ? "סמן כלא הושלם" : "סמן כהושלם"}
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
+// Extracted Section Component (Handles Empty Content & Newlines)
+function Section({ title, content }) {
+  if (!content) return null; // Avoid rendering empty sections
+
+  return (
+    <div className="relative pb-4">
+      <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
+      <p className="text-gray-700 leading-relaxed whitespace-pre-line">{content}</p>
+      <hr className="mt-4 border-t border-gray-300 shadow-sm" />
+    </div>
+  );
+}

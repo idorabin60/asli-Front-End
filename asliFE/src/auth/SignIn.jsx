@@ -1,108 +1,111 @@
-"use client";
+"use client"
 import "../App.css"
 import "../index.css"
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, EyeOff, Languages } from "lucide-react";
-import { login } from "@/api/authApi";
-import { signup } from "@/api/authApi";
- function SignIn() {
-  const navigate = useNavigate(); // React Router hook for navigation
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [usernameLogin, setUsernameLogin] = useState("");
-  const [passwordLogin, setPasswordLogin] = useState("");
-  const [emailLogin, setEmailemailLogin] = useState("");
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Eye, EyeOff } from "lucide-react"
+import { login } from "@/api/authApi"
+import { signup } from "@/api/authApi"
+function SignIn() {
+  const navigate = useNavigate() // React Router hook for navigation
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [passwordLogin, setPasswordLogin] = useState("")
+  const [emailLogin, setEmailemailLogin] = useState("")
   const [emailSignUp, setemailSignUp] = useState("")
-  const [usernameSignUp,setusernameSignUp] = useState("")
-  const [passwordSignUp, setpasswordSignUp] = useState("");
-
-
+  const [usernameSignUp, setusernameSignUp] = useState("")
+  const [passwordSignUp, setpasswordSignUp] = useState("")
+  const [firstNameSignUp, setFirstNameSignUp] = useState("")
+  const [lastNameSignUp, setLastNameSignUp] = useState("")
+  console.log(localStorage)
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    console.log("try to login");
-  
+    e.preventDefault()
+    console.log("try to login")
+
     try {
-      setIsLoading(true);
-      const response = await login(emailLogin, passwordLogin);
-  
+      setIsLoading(true)
+      const response = await login(emailLogin, passwordLogin)
+
       if (response.data) {
-        const { token, user } = response.data; // Assuming the API returns a user object
-        
+        const { token, user } = response.data // Assuming the API returns a user object
+
         // Store token
-        localStorage.setItem("token", token);
-  
+        console.log(response.data)
+        localStorage.setItem("token", token)
+
         // Store user object as JSON
-        localStorage.setItem("user", JSON.stringify(user));
-  
-        console.log("Logged in successfully:", user);
-  
-        navigate("/home"); // Redirect to home page
+        localStorage.setItem("user", JSON.stringify(user))
+
+        console.log("Logged in successfully:", user)
+
+        navigate("/home") // Redirect to home page
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
-  
+  }
 
-  const handleSignUp = async (e) =>{
+  const handleSignUp = async (e) => {
     e.preventDefault()
     try {
       console.log("trying to sign up")
-      setIsLoading(true);
-      const response = await signup(usernameSignUp, passwordSignUp,emailSignUp);
-  
+      console.log(firstNameSignUp)
+      console.log(lastNameSignUp)
+      setIsLoading(true)
+      const response = await signup(usernameSignUp, passwordSignUp, emailSignUp, firstNameSignUp, lastNameSignUp)
+
       if (response.data) {
+        console.log("LOOK ONLY HERE IDO",response.data)
         console.log(response.data)
-        const { token, user } = response.data; // Assuming the API returns a user object
-        
+        const { token, user } = response.data // Assuming the API returns a user object
+
         // Store token
-        localStorage.setItem("token", token);
-  
+        localStorage.setItem("token", token)
+
         // Store user object as JSON
-        localStorage.setItem("user", JSON.stringify(user));
-  
-        console.log("Logged in successfully:", user);
-  
-        navigate("/home"); // Redirect to home page
+        localStorage.setItem("user", JSON.stringify(user))
+
+        console.log("Logged in successfully:", user)
+
+        navigate("/home") // Redirect to home page
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
   const handleEmailChangeLogin = (newEmailValue) => {
-    setEmailemailLogin(newEmailValue);
-  };
+    setEmailemailLogin(newEmailValue)
+  }
   const handlePasswordChangeLogin = (newPasswordValue) => {
-    setPasswordLogin(newPasswordValue);
-  };
+    setPasswordLogin(newPasswordValue)
+  }
   const handleEmailChangeSignUp = (newEmailValue) => {
-    setemailSignUp(newEmailValue);
-  };
+    setemailSignUp(newEmailValue)
+  }
   const handlePasswordChangeSignUp = (newPasswordValue) => {
-    setpasswordSignUp(newPasswordValue);
-  };
+    setpasswordSignUp(newPasswordValue)
+  }
   const handleUserChangeSignUp = (newUserNameValue) => {
-    setusernameSignUp(newUserNameValue);
-  };
+    setusernameSignUp(newUserNameValue)
+  }
+  const handleFirstNameChangeSignUp = (newFirstNameValue) => {
+    setFirstNameSignUp(newFirstNameValue)
+  }
+
+  const handleLastNameChangeSignUp = (newLastNameValue) => {
+    setLastNameSignUp(newLastNameValue)
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-emerald-50 to-white p-4">
@@ -122,12 +125,8 @@ import { signup } from "@/api/authApi";
           <TabsContent value="login">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-center">
-                  Welcome Back
-                </CardTitle>
-                <CardDescription className="text-center">
-                  Continue your Arabic learning journey
-                </CardDescription>
+                <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>
+                <CardDescription className="text-center">Continue your Arabic learning journey</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleLogin}>
@@ -147,10 +146,7 @@ import { signup } from "@/api/authApi";
                     <div className="grid gap-2">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="password">Password</Label>
-                        <a
-                          href="#"
-                          className="text-sm text-emerald-600 hover:text-emerald-700"
-                        >
+                        <a href="#" className="text-sm text-emerald-600 hover:text-emerald-700">
                           Forgot password?
                         </a>
                       </div>
@@ -159,9 +155,7 @@ import { signup } from "@/api/authApi";
                           id="password"
                           type={showPassword ? "text" : "password"}
                           value={passwordLogin}
-                          onChange={(e) =>
-                            handlePasswordChangeLogin(e.target.value)
-                          }
+                          onChange={(e) => handlePasswordChangeLogin(e.target.value)}
                           placeholder="••••••••"
                           required
                         />
@@ -172,14 +166,8 @@ import { signup } from "@/api/authApi";
                           className="absolute right-0 top-0 h-full px-3 py-2 text-muted-foreground"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                          <span className="sr-only">
-                            {showPassword ? "Hide password" : "Show password"}
-                          </span>
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
                         </Button>
                       </div>
                     </div>
@@ -194,11 +182,7 @@ import { signup } from "@/api/authApi";
                       </label>
                     </div>
 
-                    <Button
-                      type="submit"
-                      className="w-full bg-emerald-600 hover:bg-emerald-700"
-                      disabled={isLoading}
-                    >
+                    <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700" disabled={isLoading}>
                       {isLoading ? "Logging in..." : "Login"}
                     </Button>
                   </div>
@@ -210,9 +194,7 @@ import { signup } from "@/api/authApi";
                     <span className="w-full border-t"></span>
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
-                      Or continue with
-                    </span>
+                    <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4 w-full">
@@ -226,26 +208,44 @@ import { signup } from "@/api/authApi";
           <TabsContent value="register">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-center">
-                  Create Account
-                </CardTitle>
-                <CardDescription className="text-center">
-                  Start your Arabic learning journey today
-                </CardDescription>
+                <CardTitle className="text-2xl text-center">Create Account</CardTitle>
+                <CardDescription className="text-center">Start your Arabic learning journey today</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSignUp}>
                   <div className="grid gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="first-name">First Name</Label>
+                        <Input
+                          id="first-name"
+                          type="text"
+                          placeholder="John"
+                          value={firstNameSignUp}
+                          onChange={(e) => handleFirstNameChangeSignUp(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="last-name">Last Name</Label>
+                        <Input
+                          id="last-name"
+                          type="text"
+                          placeholder="Doe"
+                          value={lastNameSignUp}
+                          onChange={(e) => handleLastNameChangeSignUp(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="name">Full Name</Label>
+                      <Label htmlFor="username">Username</Label>
                       <Input
-                        id="name"
+                        id="username"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="johndoe123"
                         value={usernameSignUp}
-                        onChange={(e) =>
-                          handleUserChangeSignUp(e.target.value)
-                        }
+                        onChange={(e) => handleUserChangeSignUp(e.target.value)}
                         required
                       />
                     </div>
@@ -255,10 +255,8 @@ import { signup } from "@/api/authApi";
                         id="register-email"
                         type="email"
                         placeholder="name@example.com"
-                        value = {emailSignUp}
-                        onChange={(e) =>
-                          handleEmailChangeSignUp(e.target.value)
-                        }
+                        value={emailSignUp}
+                        onChange={(e) => handleEmailChangeSignUp(e.target.value)}
                         required
                       />
                     </div>
@@ -270,9 +268,7 @@ import { signup } from "@/api/authApi";
                           type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
                           value={passwordSignUp}
-                          onChange={(e) =>
-                            handlePasswordChangeSignUp(e.target.value)
-                          }
+                          onChange={(e) => handlePasswordChangeSignUp(e.target.value)}
                           required
                         />
                         <Button
@@ -282,14 +278,8 @@ import { signup } from "@/api/authApi";
                           className="absolute right-0 top-0 h-full px-3 py-2 text-muted-foreground"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                          <span className="sr-only">
-                            {showPassword ? "Hide password" : "Show password"}
-                          </span>
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
                         </Button>
                       </div>
                     </div>
@@ -300,17 +290,12 @@ import { signup } from "@/api/authApi";
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         I agree to the{" "}
-                        <a
-                          href="#"
-                          className="text-emerald-600 hover:text-emerald-700"
-                        >
+                        <a href="#" className="text-emerald-600 hover:text-emerald-700">
                           terms and conditions
                         </a>
                       </label>
                     </div>
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
-                      Register
-                    </Button>
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">Register</Button>
                   </div>
                 </form>
               </CardContent>
@@ -320,23 +305,18 @@ import { signup } from "@/api/authApi";
 
         <p className="text-center text-sm text-muted-foreground mt-4">
           By using Asli, you agree to our{" "}
-          <a
-            href="#"
-            className="underline underline-offset-4 hover:text-primary"
-          >
+          <a href="#" className="underline underline-offset-4 hover:text-primary">
             Terms of Service
           </a>{" "}
           and{" "}
-          <a
-            href="#"
-            className="underline underline-offset-4 hover:text-primary"
-          >
+          <a href="#" className="underline underline-offset-4 hover:text-primary">
             Privacy Policy
           </a>
           .
         </p>
       </div>
     </div>
-  );
+  )
 }
-export default SignIn;
+export default SignIn
+

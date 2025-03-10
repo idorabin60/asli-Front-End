@@ -10,11 +10,13 @@ import axiosClient from "./axiosClient";
  * @param {string} email
  * @returns Promise
  */
-export function signup(username, password, email) {
+export function signup(username, password, email, first_name, last_name) {
   return axiosClient.post("/signup", {
     username,
     password,
     email,
+    first_name,
+    last_name,
   });
 }
 
