@@ -9,8 +9,6 @@ export function HomeworkList({ homeworks, onSelect, selectedId }) {
   return (
     <div className="space-y-4">
       {homeworks.map((homework) => {
-        console.log("hi")
-        console.log(homework); // ✅ Correct placement of console.log()
 
         return (
           <Card
