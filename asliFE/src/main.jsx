@@ -6,6 +6,8 @@ import SignIn from "./auth/signIn.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import Page from "./components/Page.jsx";
+import { Toaster } from "@/components/ui/toaster"
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <Page />
+      },
       {
         path: "home",
         element: <Page />,
@@ -31,5 +37,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <Toaster />
   </StrictMode>
 );

@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import clsx from "clsx";
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 export function HomeworkView({ homework, onMarkComplete }) {
   return (
-    <Card className="w-full bg-white shadow-md">
-      <CardHeader className="pb-2">
+    <Card className="w-full bg-white shadow-md" dir="rtl">
+      <CardHeader className="pb-2 text-right">
         <CardTitle className="text-2xl font-bold text-gray-800">{homework.title}</CardTitle>
         <div className="text-sm text-gray-600">{homework.subject}</div>
       </CardHeader>
@@ -17,13 +19,13 @@ export function HomeworkView({ homework, onMarkComplete }) {
         <Section title="תופעה דקדוקית" content={homework.grammatical_phenomenon} />
       </CardContent>
 
-      <CardFooter className="border-t pt-4 flex justify-end">
+      <CardFooter className="border-t pt-4 flex justify-start">
         <Button
-          className={clsx(
+          className={cn(
             "px-4 py-2 rounded-md transition-colors",
             homework.completed
               ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-              : "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-primary text-primary-foreground hover:bg-primary/90",
           )}
           onClick={() => onMarkComplete(homework.id)}
         >
@@ -31,18 +33,19 @@ export function HomeworkView({ homework, onMarkComplete }) {
         </Button>
       </CardFooter>
     </Card>
-  );
+  )
 }
 
 // Extracted Section Component (Handles Empty Content & Newlines)
 function Section({ title, content }) {
-  if (!content) return null; // Avoid rendering empty sections
+  if (!content) return null // Avoid rendering empty sections
 
   return (
     <div className="relative pb-4">
-      <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
-      <p className="text-gray-700 leading-relaxed whitespace-pre-line">{content}</p>
+      <h3 className="text-lg font-semibold text-gray-800 mb-2 text-right">{title}</h3>
+      <p className="text-gray-700 leading-relaxed whitespace-pre-line text-right">{content}</p>
       <hr className="mt-4 border-t border-gray-300 shadow-sm" />
     </div>
-  );
+  )
 }
+

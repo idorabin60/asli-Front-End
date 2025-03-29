@@ -28,19 +28,19 @@ export default function Sidebar() {
         {/* Navigation Links */}
         <ul className="flex-1 py-4 space-y-2">
           <NavItem to="/" icon={<Home size={20} />} text="בית" isActive={location.pathname === "/"} />
-          <NavItem
+          {/* <NavItem
             to="/projects"
             icon={<Layers size={20} />}
             text="תמיכה"
             isActive={location.pathname === "/projects"}
-          />
-          <NavItem to="/about" icon={<Info size={20} />} text="עלינו" isActive={location.pathname === "/about"} />
+          /> */}
+          {/* <NavItem to="/about" icon={<Info size={20} />} text="עלינו" isActive={location.pathname === "/about"} />
           <NavItem
             to="/contact"
             icon={<MessageSquare size={20} />}
             text="אנשי קשר"
             isActive={location.pathname === "/contact"}
-          />
+          /> */}
         </ul>
       </div>
     </nav>

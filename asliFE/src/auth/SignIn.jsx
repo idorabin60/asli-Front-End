@@ -12,7 +12,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Eye, EyeOff } from "lucide-react"
 import { login } from "@/api/authApi"
 import { signup } from "@/api/authApi"
+import { useToast } from "@/hooks/use-toast";
+
 function SignIn() {
+  const { toast } = useToast();
   const navigate = useNavigate() // React Router hook for navigation
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -48,6 +51,10 @@ function SignIn() {
         navigate("/home") // Redirect to home page
       }
     } catch (error) {
+      console.log("bla")
+      toast({
+        description: "אימייל או סיסמא לא נכונים נסה שנית שוב",
+      });
       console.error("Login error:", error)
     } finally {
       setIsLoading(false)
@@ -112,27 +119,27 @@ function SignIn() {
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-bold text-emerald-700">Lingo Native</h1>
+            <h1 className="text-3xl font-bold text-emerald-700">אסלי-אזור אישי</h1>
           </div>
         </div>
 
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-4">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login">התחברות</TabsTrigger>
+            <TabsTrigger value="register">הרשמה</TabsTrigger>
           </TabsList>
 
           <TabsContent value="login">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>
-                <CardDescription className="text-center">Continue your Arabic learning journey</CardDescription>
+                <CardTitle className="text-2xl text-center">ברוך הבא</CardTitle>
+                <CardDescription className="text-center">תמשיך את המסע שלך ללימוד ערבית</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleLogin}>
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">אימייל</Label>
                       <Input
                         id="email"
                         type="text"
@@ -145,10 +152,11 @@ function SignIn() {
 
                     <div className="grid gap-2">
                       <div className="flex items-center justify-between">
-                        <Label htmlFor="password">Password</Label>
-                        <a href="#" className="text-sm text-emerald-600 hover:text-emerald-700">
-                          Forgot password?
+                      <a href="#" className="text-sm text-emerald-600 hover:text-emerald-700">
+                          ?שכחת סיסמא
                         </a>
+                        <Label htmlFor="password">סיסמא</Label>
+                        
                       </div>
                       <div className="relative">
                         <Input
@@ -178,12 +186,12 @@ function SignIn() {
                         htmlFor="remember"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        Remember me
+                        זכור אותי
                       </label>
                     </div>
 
                     <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700" disabled={isLoading}>
-                      {isLoading ? "Logging in..." : "Login"}
+                      {isLoading ? "Logging in..." : "התחבר"}
                     </Button>
                   </div>
                 </form>
@@ -208,15 +216,15 @@ function SignIn() {
           <TabsContent value="register">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-center">Create Account</CardTitle>
-                <CardDescription className="text-center">Start your Arabic learning journey today</CardDescription>
+                <CardTitle className="text-2xl text-center">צור חשבון</CardTitle>
+                <CardDescription className="text-center">תתחיל את המסע שלך ללימודי ערבית היום</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSignUp}>
                   <div className="grid gap-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="grid gap-2">
-                        <Label htmlFor="first-name">First Name</Label>
+                        <Label htmlFor="first-name">שם פרטי</Label>
                         <Input
                           id="first-name"
                           type="text"
@@ -227,7 +235,7 @@ function SignIn() {
                         />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="last-name">Last Name</Label>
+                        <Label htmlFor="last-name">שם משפחה</Label>
                         <Input
                           id="last-name"
                           type="text"
@@ -239,7 +247,7 @@ function SignIn() {
                       </div>
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="username">Username</Label>
+                      <Label htmlFor="username">יוזר ניים</Label>
                       <Input
                         id="username"
                         type="text"
@@ -250,7 +258,7 @@ function SignIn() {
                       />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="register-email">Email</Label>
+                      <Label htmlFor="register-email">אימייל</Label>
                       <Input
                         id="register-email"
                         type="email"
@@ -261,7 +269,7 @@ function SignIn() {
                       />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="register-password">Password</Label>
+                      <Label htmlFor="register-password">סיסמא</Label>
                       <div className="relative">
                         <Input
                           id="register-password"
@@ -295,7 +303,7 @@ function SignIn() {
                         </a>
                       </label>
                     </div>
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">Register</Button>
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">תרשם</Button>
                   </div>
                 </form>
               </CardContent>
