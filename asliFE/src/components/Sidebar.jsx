@@ -19,24 +19,20 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button - visible when sidebar is closed */}
-      {!isOpen && (
-        <button 
-          onClick={toggleSidebar}
-          className="fixed right-4 top-4 z-50 rounded-md bg-[#232936] p-2 text-white md:hidden"
-        >
-          <Menu size={24} />
-        </button>
-      )}
+      {/* Hamburger toggle button */}
+      <button 
+        onClick={toggleSidebar}
+        className="fixed right-4 top-4 z-50 p-2 bg-[#232936] text-white rounded-md shadow-md hover:bg-[#2c3444]"
+        aria-label="Toggle sidebar"
+      >
+        <Menu size={24} />
+      </button>
       
       <nav className={`fixed right-0 top-0 h-screen bg-[#232936] text-white shadow-lg transition-all duration-300 
-        ${isOpen ? "w-16 md:w-64" : "w-0 -right-2 md:-right-4 overflow-hidden"}`}>
+        ${isOpen ? "w-16 md:w-64" : "w-0 overflow-hidden"}`}>
         <div className="flex flex-col h-full">
           {/* Logo Section */}
-          <div 
-            className="logo relative flex justify-center items-center p-12 border-b border-gray-700 cursor-pointer"
-            onClick={toggleSidebar}
-          >
+          <div className="logo relative flex justify-center items-center p-12 border-b border-gray-700">
             <img
               src="/logo.png"
               alt="Logo"
