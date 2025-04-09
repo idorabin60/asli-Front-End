@@ -20,14 +20,12 @@ export function HomeworkList({ homeworks, onSelect, selectedId }) {
           >
             <CardContent className="p-4">
               <div className="flex items-center space-x-3">
-                {/* Status Dot (Now on the Left) */}
                 <div
                   className={`w-3 h-3 rounded-full flex-shrink-0 ${
                     homework.completed ? "bg-green-500" : "bg-yellow-500"
                   }`}
                 ></div>
 
-                {/* Text (Now on the Right) */}
                 <div className="text-right flex-1">
                   <h3 className="font-medium text-lg">{homework.title}</h3>
                   <p className="text-sm text-gray-600">{homework.subject}</p>
