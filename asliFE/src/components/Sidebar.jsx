@@ -1,17 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Home, Layers, MessageSquare, Info, Menu } from 'lucide-react'
 import { Link, useLocation } from "react-router-dom"
-import { useEffect } from "react"
 
 export default function Sidebar() {
   const location = useLocation()
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Function to check if device is mobile
+  const checkIsMobile = () => {
+    setIsMobile(window.innerWidth < 768)
+  }
 
   useEffect(() => {
-    console.log("Sidebar Mounted")
+    // Check initially
+    checkIsMobile()
+    
+    // Set initial sidebar state based on device type
+    setIsOpen(!isMobile)
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile)
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkIsMobile)
+    }
   }, [])
+
+  // Update sidebar state when mobile status changes
+  useEffect(() => {
+    setIsOpen(!isMobile)
+  }, [isMobile])
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
@@ -20,13 +42,15 @@ export default function Sidebar() {
   return (
     <>
       {/* Hamburger toggle button */}
-      <button 
-        onClick={toggleSidebar}
-        className="fixed right-4 top-4 z-50 p-2 bg-[#232936] text-white rounded-md shadow-md hover:bg-[#2c3444]"
-        aria-label="Toggle sidebar"
-      >
-        <Menu size={24} />
-      </button>
+      {!isMobile && (
+        <button 
+          onClick={toggleSidebar}
+          className="fixed right-4 top-4 z-50 p-2 bg-[#232936] text-white rounded-md shadow-md hover:bg-[#2c3444]"
+          aria-label="Toggle sidebar"
+        >
+          <Menu size={24} />
+        </button>
+      )}
       
       <nav className={`fixed right-0 top-0 h-screen bg-[#232936] text-white shadow-lg transition-all duration-300 
         ${isOpen ? "w-16 md:w-64" : "w-0 overflow-hidden"}`}>
